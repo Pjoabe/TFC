@@ -20,4 +20,15 @@ export default class MatchService {
     );
     return allMatches;
   }
+
+  async searchForMatchesInProgress(inProgress: boolean): Promise<match[]> {
+    const onGoing = await this._model.findAll(
+      {
+        where: { inProgress },
+        include: [{ model: Team, as: 'awayTeam' },
+          { model: Team, as: 'homeTeam' }],
+      },
+    );
+    return onGoing;
+  }
 }

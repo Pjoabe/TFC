@@ -7,6 +7,7 @@ const router = Router();
 const service = new MatchService(match);
 const controller = new MatchController(service);
 
+router.patch('/:id/finish', (req: Request, res: Response) => controller.getAllMatches(req, res));
 router.get('/', (req: Request, res: Response) => controller.getAllMatches(req, res));
 
 export default router;
