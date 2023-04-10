@@ -15,4 +15,10 @@ export default class MatchController {
       : await this._service.searchForAllMatches();
     return res.status(200).json(response);
   }
+
+  async getMatchById(req: Request, res: Response) {
+    const { id } = req.params;
+    await this._service.searchMatchById(+id);
+    return res.status(200).json({ message: 'Finished' });
+  }
 }

@@ -31,4 +31,8 @@ export default class MatchService {
     );
     return onGoing;
   }
+
+  async searchMatchById(id: number) {
+    await this._model.update({ inProgress: false }, { where: { id } });
+  }
 }
