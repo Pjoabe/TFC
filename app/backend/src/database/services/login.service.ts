@@ -12,10 +12,10 @@ export default class LoginService {
   async login(email: string, password: string): Promise<string | boolean> {
     const user = await this._model.findOne({ where: { email } });
     if (!user) {
-      return false;
+      return 'Invalid email or password';
     }
     if (!bcrypt.compareSync(password, user.dataValues.password)) {
-      return 'Invalid password';
+      return 'Invalid email or password';
     }
     const { _password, ...payload } = user.dataValues;
     return newToken(payload);
