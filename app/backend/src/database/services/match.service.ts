@@ -35,4 +35,25 @@ export default class MatchService {
   async searchMatchById(id: number) {
     await this._model.update({ inProgress: false }, { where: { id } });
   }
+
+  async updateResultById(homeTeamGoals: number, awayTeamGoals: number, id: number) {
+    await this._model.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+  }
+
+  async createMatchResult(
+    homeTeamId: number,
+    awayTeamId: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+  ) {
+    const newMatch = await this._model.create(
+      { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals, inProgress: true },
+    );
+    return newMatch;
+  }
+
+  async searchById(homeTeamId: number, awayTeamId: number): Promise<match[]> {
+    const id = await this._model.findAll({ where: { homeTeamId, awayTeamId } });
+    return id;
+  }
 }
